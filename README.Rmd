@@ -10,8 +10,8 @@ always_allow_html: true
 
 # DPM
 
-[![R-CMD-check](https://github.com/Misty-L/DPM/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Misty-L/DPM/actions/workflows/R-CMD-check.yaml)
-[![pkgdown](https://github.com/Misty-L/DPM/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/Misty-L/DPM/actions/workflows/pkgdown.yaml)
+[![R-CMD-check](https://github.com/Jiacheng-Lou/DPM/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Jiacheng-Lou/DPM/actions/workflows/R-CMD-check.yaml)
+[![pkgdown](https://github.com/Jiacheng-Lou/DPM/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/Jiacheng-Lou/DPM/actions/workflows/pkgdown.yaml)
 
 **DPM** (*Dirichlet Process Mixture for Polygenic Risk Decomposition*) is an R package for integrating LD-corrected gene-level GWAS response statistics with gene-by-cellular-label expression profiles. DPM infers latent gene modules and estimates module-specific cellular coefficients under a heteroscedastic Bayesian nonparametric model.
 
@@ -44,7 +44,7 @@ if (!requireNamespace("remotes", quietly = TRUE)) {
 }
 
 remotes::install_github(
-  "Misty-L/DPM",
+  "Jiacheng-Lou/DPM",
   build_vignettes = TRUE
 )
 

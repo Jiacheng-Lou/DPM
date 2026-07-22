@@ -1,13 +1,27 @@
+# R history and local state files
 .Rhistory
 .RData
 .Ruserdata
 .Rproj.user
+
+# OS-generated files
 .DS_Store
+Thumbs.db
+
+# C / C++ compiled dynamic libraries and object files (ignored to force local recompilation)
 *.o
 *.so
 *.dll
 src/*.o
 src/*.so
 src/*.dll
+
+# R package tarballs and temporary installation directories
+*.tar.gz
+00LOCK-*
 /doc/
 /Meta/
+
+# Locally rendered files
+vignettes/*.html
+vignettes/*.R

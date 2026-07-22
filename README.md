@@ -3,8 +3,8 @@
 
 # DPM
 
-[![R-CMD-check](https://github.com/Misty-L/DPM/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Misty-L/DPM/actions/workflows/R-CMD-check.yaml)
-[![pkgdown](https://github.com/Misty-L/DPM/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/Misty-L/DPM/actions/workflows/pkgdown.yaml)
+[![R-CMD-check](https://github.com/Jiacheng-Lou/DPM/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Jiacheng-Lou/DPM/actions/workflows/R-CMD-check.yaml)
+[![pkgdown](https://github.com/Jiacheng-Lou/DPM/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/Jiacheng-Lou/DPM/actions/workflows/pkgdown.yaml)
 
 **DPM** (*Dirichlet Process Mixture for Polygenic Risk Decomposition*)
 is an R package for integrating LD-corrected gene-level GWAS response
@@ -48,7 +48,7 @@ if (!requireNamespace("remotes", quietly = TRUE)) {
 }
 
 remotes::install_github(
-  "Misty-L/DPM",
+  "Jiacheng-Lou/DPM",
   build_vignettes = TRUE
 )
 
