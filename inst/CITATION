@@ -1,0 +1,33 @@
+citHeader("To cite DPM in publications, please use:")
+
+bibentry(
+  bibtype = "Manual",
+  title = "DPM: Dirichlet Process Mixture for Polygenic Risk Decomposition",
+  author = c(
+    person(
+      given = "Jiacheng",
+      family = "Lou",
+      role = c("aut", "cre"),
+      email = "jiachenglou82@gmail.com"
+      # 如果你有 ORCID，可以取消下一行的注释并填入：
+      # comment = c(ORCID = "0000-0002-xxxx-xxxx")
+    )
+  ),
+  year = "2026",
+  note = paste("R package version", meta$Version),
+  url = "https://github.com/Jiacheng-Lou/DPM"
+)
+
+# # 未来论文发表后追加的示例：
+# bibentry(
+#   bibtype = "Article",
+#   title = "你的论文正式标题",
+#   author = c(
+#     person("Jiacheng", "Lou", role = c("aut", "cre")),
+#     person("其他作者", "姓名")
+#   ),
+#   journal = "Genome Biology", # 或 bioRxiv
+#   year = "2026",
+#   doi = "10.1186/xXxXxXxXxX",
+#   url = "https://doi.org/10.1186/xXxXxXxXxX"
+# )
