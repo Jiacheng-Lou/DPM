@@ -1,0 +1,39 @@
+Package: DPM
+Type: Package
+Title: Dirichlet Process Mixture for Gene-Level Polygenic Risk Decomposition
+Version: 0.0.0.9000
+Authors@R: person(given = "Jiacheng", family = "Lou",
+           email = "jiachenglou82@gmail.com",
+           role = c("aut", "cre"))
+Author: Jiacheng Lou [aut, cre]
+Maintainer: Jiacheng Lou <jiachenglou82@gmail.com>
+Description: Implements a Dirichlet process mixture framework for decomposing
+    gene-level GWAS signals into latent modules with module-specific cellular
+    coefficients using single-cell-derived gene-by-label expression profiles.
+License: GPL-3
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+VignetteBuilder: knitr
+Depends:
+    R (>= 4.1.0)
+Imports:
+    Rcpp,
+    data.table,
+    methods,
+    Matrix,
+    cluster,
+    statmod,
+    HDInterval,
+    stats,
+    utils,
+    parallel
+Suggests:
+    Seurat,
+    FNN,
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown
+LinkingTo:
+    Rcpp
+Config/testthat/edition: 3

@@ -1,0 +1,182 @@
+---
+title: "Getting Started with DPM"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting Started with DPM}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 7,
+  fig.height = 5
+)
+```
+
+## Overview
+
+DPM integrates an LD-corrected gene-level GWAS response with a
+gene-by-cellular-label expression matrix. It uses a heteroscedastic
+Dirichlet process mixture to infer latent gene modules and module-specific
+cellular coefficients.
+
+The shortest workflow starts from:
+
+1. a gene-by-cellular-label expression matrix, `X`;
+2. a response table containing `gene_name`, `final_y`, `d0`, `d1`, and `d2`.
+
+The installed example data are deliberately small. They are intended to
+demonstrate the software interface and must not be used for biological
+interpretation.
+
+## Load the installed example data
+
+```{r load-example}
+library(DPM)
+
+example_dir <- system.file(
+  "extdata",
+  "example",
+  package = "DPM",
+  mustWork = TRUE
+)
+
+example_X <- readRDS(
+  file.path(example_dir, "example_x.rds")
+)
+
+example_response <- readRDS(
+  file.path(example_dir, "example_response.rds")
+)
+
+dim(example_X)
+head(example_response)
+table(example_response$status, useNA = "ifany")
+```
+
+The rows of `example_X` are genes and the columns are cellular labels.
+The response is retained on its original LD-corrected scale. Negative
+`final_y` values, when present, are not truncated or log transformed.
+
+## Prepare model input
+
+`prepare_input()` aligns genes between the expression matrix and the
+response, retains response records with `status == "ok"`, generates initial
+cluster labels, and recommends prior hyperparameters when priors are not
+supplied.
+
+```{r prepare-input}
+dpm_data <- prepare_input(
+  X = example_X,
+  response = example_response,
+  K_init = 3L,
+  min_genes = 10L,
+  seed = 2028L,
+  verbose = TRUE
+)
+
+dim(dpm_data$x_train)
+table(dpm_data$z_init)
+dpm_data$priors
+```
+
+Gene2vec initialization is optional. When no embedding is supplied, DPM uses
+a k-means fallback based on the aligned response and expression matrix.
+
+## Fit the DPM model
+
+The settings below are intentionally short so that the vignette builds
+quickly. A production analysis should use substantially longer chains and
+should evaluate stability across seeds.
+
+```{r fit-model}
+fit <- run_dpm(
+  dpm_data = dpm_data,
+  alpha = 0.1,
+  m = 2L,
+  n_iter = 60L,
+  burnin = 30L,
+  thin = 1L,
+  seed = 2028L,
+  save_scales = FALSE,
+  verbose = TRUE
+)
+
+length(fit$samples)
+summary(fit$diagnostics$cluster_counts)
+```
+
+## Obtain a point-estimate partition
+
+DPM summarizes posterior label draws through a posterior similarity matrix.
+The point-estimate partition is selected by PAM silhouette within a local
+window around the posterior-supported number of major modules.
+
+```{r partition}
+partition <- get_partition(
+  fit = fit,
+  min_cluster_size = 1L,
+  mode_window = 1L,
+  return_dissimilarity = FALSE,
+  verbose = TRUE
+)
+
+partition$K
+table(partition$assignments)
+```
+
+## Test module-cellular-label associations
+
+`test_significance()` combines:
+
+- feasible generalized least squares with BH FDR control;
+- Bayesian local false sign rate;
+- a dual-significance rule requiring both criteria.
+
+```{r significance}
+significance <- test_significance(
+  fit = fit,
+  partition = partition,
+  dpm_data = dpm_data,
+  fdr_thr = 0.05,
+  lfsr_thr = 0.05,
+  verbose = TRUE
+)
+
+head(significance$table)
+significance$module_diagnostics
+subset(significance$table, dual_significant)
+```
+
+The example contains only 24 genes but 31 cellular predictors. Consequently,
+some or all example modules can be underdetermined for frequentist inference.
+For such modules, DPM retains descriptive coefficients but sets the
+frequentist standard error, P value, and FDR to `NA`. They cannot be declared
+dual-significant. This behavior is intentional and allows the example to test
+the package interface without presenting the miniature dataset as a valid
+biological analysis.
+
+## Rank genes and cellular labels
+
+```{r scores}
+gene_results <- gene_score(
+  partition = partition,
+  coefficients = significance$coefficients,
+  x_train = dpm_data$x_train,
+  top_n = 10L,
+  verbose = TRUE
+)
+
+head(gene_results$top_genes)
+
+cellular_results <- cell_type_score(significance)
+head(cellular_results)
+```
+
+The gene score is an expression-weighted prioritization score rather than an
+independent significance test. Biological conclusions should combine module
+enrichment, transcription-factor analysis, external validation, and other
+downstream evidence.
