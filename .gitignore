@@ -25,3 +25,5 @@ src/*.dll
 # Locally rendered files
 vignettes/*.html
 vignettes/*.R
+.httr-oauth
+.quarto

@@ -1,0 +1,32 @@
+url: https://jiacheng-lou.github.io/DPM/
+
+template:
+  bootstrap: 5
+  bootswatch: flatly
+
+navbar:
+  structure:
+    left: [get_started, reference, articles, news]
+    right: [search, github]
+  components:
+    get_started:
+      text: Get Started
+      href: articles/get-started.html
+
+articles:
+- title: Core workflows
+  navbar: Workflows
+  contents:
+  - get-started
+  - compute-gene-response
+  - input-formats-and-entry-points
+
+home:
+  title: DPM
+  description: >
+    Dirichlet Process Mixture for Polygenic Risk Decomposition using
+    LD-corrected gene-level GWAS responses and gene-by-cellular-label
+    expression profiles.
+
+development:
+  mode: auto
