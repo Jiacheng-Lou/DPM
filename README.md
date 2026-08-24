@@ -234,6 +234,8 @@ A SNP can map to multiple genes when extended gene windows overlap.
 ### 4. Compute the LD-corrected gene-level response
 
 ``` r
+checkpoint_dir <- file.path(tempdir(), "DPM_response_checkpoints")
+
 response <- compute_response(
   gene_snp_matches = gene_snp_matches,
   gwas_clean = gwas_clean,
@@ -245,6 +247,7 @@ response <- compute_response(
   max_genes_per_chr = NULL,
   max_snps_per_gene = Inf,
   include_diagnostics = TRUE,
+  output_dir = checkpoint_dir,
   save_by_chr = TRUE,
   resume = TRUE,
   drop_failed = FALSE,
@@ -296,14 +299,10 @@ significance <- test_significance(
 
 ## LD reference data
 
-Full genome-wide LD files are not bundled with the package.
-
-DPM accepts user-supplied ancestry-matched LD references. A separately
-hosted reference may also be provided for convenience after publication:
-
-``` text
-GOOGLE_DRIVE_LD_LINK
-```
+Full genome-wide LD files are not bundled with the package. Users must
+supply a compatible, ancestry-matched external LD reference in the
+documented input format; see the *Computing the LD-Corrected Gene-Level
+Response* vignette.
 
 For SNP-name matching, chromosome-specific LD files should contain:
 
@@ -388,10 +387,10 @@ The package includes:
 - **Computing the LD-Corrected Gene-Level Response**
 - **DPM Input Formats and Workflow Entry Points**
 
-The pkgdown site will be available at:
+The pkgdown site is available at:
 
 ``` text
-https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPOSITORY_NAME/
+https://jiacheng-lou.github.io/DPM/
 ```
 
 ## Reproducibility
@@ -411,31 +410,26 @@ end-to-end tests.
 
 ## Citation
 
-A formal software and/or manuscript citation will be added before the
-`v0.1.0` release.
+To obtain the current package citation, run:
 
-Until then, please cite the GitHub repository:
-
-``` text
-DPM: Dirichlet Process Mixture for Polygenic Risk Decomposition.
-https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPOSITORY_NAME
+``` r
+citation("DPM")
 ```
 
 ## License
 
-The final open-source license will be specified before the `v0.1.0`
-release.
+DPM is released under GPL-3.
 
 ## Issues and contact
 
 Please report software problems through GitHub Issues:
 
 ``` text
-https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPOSITORY_NAME/issues
+https://github.com/Jiacheng-Lou/DPM/issues
 ```
 
 For scientific questions, contact:
 
 ``` text
-YOUR_CONTACT_EMAIL
+jiachenglou82@gmail.com
 ```

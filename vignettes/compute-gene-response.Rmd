@@ -172,6 +172,8 @@ A complete analysis typically processes all autosomes and restricts response
 calculation to genes present in the final expression matrix.
 
 ```{r full-analysis-template, eval=FALSE}
+checkpoint_dir <- file.path(tempdir(), "DPM_response_checkpoints")
+
 response <- compute_response(
   gene_snp_matches = gene_snp_matches,
   gwas_clean = gwas_clean,
@@ -182,6 +184,7 @@ response <- compute_response(
   n_cores = 20L,
   max_genes_per_chr = NULL,
   max_snps_per_gene = Inf,
+  output_dir = checkpoint_dir,
   save_by_chr = TRUE,
   resume = TRUE,
   include_diagnostics = TRUE,

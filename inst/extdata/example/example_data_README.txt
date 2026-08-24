@@ -1,7 +1,7 @@
 DPM AD example dataset
 
 Generated: 2026-07-18 10:38:45 UTC
-DPM package version: 0.0.0.9000
+DPM package version: 0.1.0
 Chromosome: 1
 GWAS matching mode: snp_name
 LD ancestry: EUR
@@ -14,7 +14,7 @@ Unique SNPs: 20605
 Directed LD records: 364382
 
 Files:
-  example_X.rds
+  example_x.rds
     Gene-by-cellular-label expression matrix.
   example_response.rds
     Frozen LD-corrected gene-level response.
@@ -27,6 +27,12 @@ Files:
   example_data_manifest.csv
     File sizes and MD5 checksums.
 
-This dataset is intended only for DPM package tests and examples.
-It must not be interpreted as a complete Alzheimer disease analysis.
-Redistribution permissions for source resources must be verified before public release.
+These bundled files are small demonstration and test fixtures prepared by the
+DPM authors. The example follows the project's simulation-data generation
+workflow and does not redistribute the manuscript's real disease datasets.
+The gene-SNP mapping was generated for this example, and
+example_response.rds is a frozen derived output from the example workflow.
+example_ld_chr1.rds is a reduced chromosome-1 LD fixture derived from the
+1000 Genomes Project Phase 3 European (EUR) reference panel. DPM does not
+distribute the full genome-wide LD reference panel; users performing real
+analyses must provide a compatible ancestry-matched external LD reference.

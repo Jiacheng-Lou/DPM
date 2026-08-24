@@ -1,7 +1,7 @@
 Package: DPM
 Type: Package
 Title: Dirichlet Process Mixture for Gene-Level Polygenic Risk Decomposition
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: person(given = "Jiacheng", family = "Lou",
            email = "jiachenglou82@gmail.com",
            role = c("aut", "cre"))
@@ -33,6 +33,7 @@ Imports:
 Suggests:
     Seurat,
     FNN,
+    R.utils,
     testthat (>= 3.0.0),
     knitr,
     rmarkdown
